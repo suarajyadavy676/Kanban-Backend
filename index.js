@@ -2,10 +2,13 @@ const express = require('express')
 const path = require('path')
 const dbConnection = require('./src/config/db')
 const userRouter = require('./src/routes/user.routes')
+const cors = require('cors')
 const app = express()
 require('dotenv').config()
 
 let port = process.env.PORT || 4000
+
+app.use(cors())
 
 // for ejs
 app.set('view engine','ejs')
