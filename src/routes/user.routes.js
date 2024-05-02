@@ -8,6 +8,10 @@ let userRouter = Router()
 userRouter.post('/register',async(req,res)=>{
   try {
     const {email,password,username,role} = req.body
+    let user = await UserData.find({email})
+    if(user){
+      return res.send("user already present")
+    }
     bcrypt.hash(password,10, async function(err, hash) {
       // Store hash in your password DB.
       if(err){
