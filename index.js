@@ -9,7 +9,20 @@ require('dotenv').config()
 
 let port = process.env.PORT || 4000
 
-app.use(cors())
+const allowedOrigins = ['https://hacker-rank-project.vercel.app', 'https://another-domain.com', 'https://example.com'];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
 
 // for ejs
 app.set('view engine','ejs')
