@@ -3,6 +3,7 @@ const path = require('path')
 const dbConnection = require('./src/config/db')
 const userRouter = require('./src/routes/user.routes')
 const cors = require('cors')
+const productRouter = require('./src/routes/product.routes')
 const app = express()
 require('dotenv').config()
 
@@ -26,6 +27,7 @@ app.get('/',(req,res)=>{
 
 // all routes
 app.use('/user',userRouter)
+app.use('/products',productRouter)
 
 app.listen(port,async()=>{
   try {
