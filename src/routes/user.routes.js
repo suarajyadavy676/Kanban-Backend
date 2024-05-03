@@ -9,7 +9,7 @@ userRouter.post('/register',async(req,res)=>{
   try {
     const {email,password,username,role} = req.body
     let user = await UserData.find({email})
-    if(user){
+    if(user.length>0){
       return res.send("user already present")
     }
     bcrypt.hash(password,10, async function(err, hash) {
@@ -18,7 +18,7 @@ userRouter.post('/register',async(req,res)=>{
         return res.status(400).send("hashing error")
       }  
       await UserData.create({username,email,password:hash,role})
-      return res.send("user register successfully")
+      return res.json({msg:"user register successfully",userInfo:[{email,username}]})
   });
   } catch (error) {
     return res.status(500).send("server error in register time")
