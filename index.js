@@ -10,7 +10,7 @@ require('dotenv').config()
 let port = process.env.PORT || 4000
 
 //for production
-// const allowedOrigins = ['https://hacker-rank-project.vercel.app', 'http://localhost:3000/', 'https://example.com'];
+const allowedOrigins = ['https://hacker-rank-project.vercel.app', 'http://localhost:3000/', 'https://example.com'];
 
 const corsOptions = {
   origin: function (origin, callback) {
