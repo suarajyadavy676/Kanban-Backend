@@ -9,7 +9,8 @@ require('dotenv').config()
 
 let port = process.env.PORT || 4000
 
-const allowedOrigins = ['https://hacker-rank-project.vercel.app', 'https://another-domain.com', 'https://example.com'];
+//for production
+// const allowedOrigins = ['https://hacker-rank-project.vercel.app', 'http://localhost:3000/', 'https://example.com'];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -21,8 +22,10 @@ const corsOptions = {
   },
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
-
 app.use(cors(corsOptions));
+
+// local use
+// app.use(cors());
 
 // for ejs
 app.set('view engine','ejs')

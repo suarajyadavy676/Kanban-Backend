@@ -28,21 +28,21 @@ userRouter.post('/register',async(req,res)=>{
 userRouter.post('/signIn',async(req,res)=>{
   let {email}=req.body
   let user = await UserData.findOne({email})
-  let payload = {
-    name:user._id,
-    email:user.email
-  }
   console.log(process.env.JWT_SECRET)
   try {
     if(!user){
-      return res.send("please register")
+      return res.status(404).send("please register")
     }else{
       bcrypt.compare(req.body.password, user.password, function(err, result) {
         if(err){
           return res.send("wrong password")
         }
+        let payload = {
+          name:user._id,
+          email:user.email
+        }
         let token = jwt.sign(payload,process.env.JWT_SECRET,{expiresIn:"1h"})
-        return res.send({token,messege:"Sign in successfully"})
+        return res.send({token,messege:"Sign in successfully",name:user.username})
     })
     }
   } catch (error) {
