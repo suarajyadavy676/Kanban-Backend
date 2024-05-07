@@ -1,5 +1,5 @@
 const {Schema,model} = require('mongoose')
-let productSchema = new Schema({
+let cartSchema = new Schema({
   image:String,
   detail:{type:String,required:true,},
   save:String,
@@ -8,6 +8,6 @@ let productSchema = new Schema({
   price:{type:String,required:true},
 })
 
-let Product = model('Product',productSchema)
+let Cart = model('cart',cartSchema)
 
-module.exports =  Product
+module.exports =  cart
