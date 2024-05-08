@@ -10,18 +10,20 @@ require('dotenv').config()
 let port = process.env.PORT || 4000
 
 //for production
-const allowedOrigins = ['https://frontend-git-main-suraj-yadavs-projects.vercel.app','https://hacker-rank-project.vercel.app', 'http://localhost:3000/', ];
+const allowedOrigins = ['https://frontend-git-main-suraj-yadavs-projects.vercel.app','https://hacker-rank-project.vercel.app', 'http://localhost:3000', ];
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+    const normalizedOrigin = origin ? origin.replace(/\/$/, '') : origin; // Remove trailing slash for comparison
+    if (allowedOrigins.indexOf(normalizedOrigin) !== -1 || !origin) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
   },
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  optionsSuccessStatus: 200
 };
+
 app.use(cors(corsOptions));
 
 // local use
