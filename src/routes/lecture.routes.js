@@ -1,25 +1,25 @@
 const {Router} = require('express')
-const Product = require('../models/product.model')
+const Lecture = require('../models/lecture.model')
 
-let productRouter = Router()
+let lectureRouter = Router()
 
-productRouter.post('/',async(req,res)=>{
+lectureRouter.post('/',async(req,res)=>{
   console.log(req.body)
   try {
-    await Product.create(req.body)
+    await Lecture.create(req.body)
     return res.json({mes:"data created successFully"})
   } catch (error) {
     console.log("error in server")
     return res.status(500).send("server side error")
   }
 })
- productRouter.get('/',async(req,res)=>{
+ lectureRouter.get('/',async(req,res)=>{
   try {
-    let data = await Product.find()
+    let data = await Lecture.find()
     console.log(data)
     return res.send(data)
   } catch (error) {
     return res.status.send("server side error")
   }
  })
-module.exports = productRouter
+module.exports = lectureRouter

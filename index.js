@@ -3,31 +3,29 @@ const path = require('path')
 const dbConnection = require('./src/config/db')
 const userRouter = require('./src/routes/user.routes')
 const cors = require('cors')
-const productRouter = require('./src/routes/product.routes')
+const lectureRouter = require('./src/routes/lecture.routes')
 const app = express()
 require('dotenv').config()
 
 let port = process.env.PORT || 4000
 
 //for production
-const allowedOrigins = ['https://frontend-git-main-suraj-yadavs-projects.vercel.app','https://hacker-rank-project.vercel.app', 'http://localhost:3000', ];
+// const allowedOrigins = ['https://frontend-git-main-suraj-yadavs-projects.vercel.app/','https://hacker-rank-project.vercel.app/', 'http://localhost:3000/', ];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    const normalizedOrigin = origin ? origin.replace(/\/$/, '') : origin; // Remove trailing slash for comparison
-    if (allowedOrigins.indexOf(normalizedOrigin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  optionsSuccessStatus: 200
-};
-
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// };
+// app.use(cors(corsOptions));
 
 // local use
-// app.use(cors());
+app.use(cors());
 
 // for ejs
 app.set('view engine','ejs')
@@ -45,7 +43,7 @@ app.get('/',(req,res)=>{
 
 // all routes
 app.use('/user',userRouter)
-app.use('/products',productRouter)
+app.use('/products',lectureRouter)
 
 app.listen(port,async()=>{
   try {
